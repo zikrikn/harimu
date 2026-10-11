@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4efe5" />
+    <title>Rencana — planner harian</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main id="login-screen" class="login-screen">
+      <div class="login-wrap">
+        <header class="login-topbar">
+          <a class="brand" href="#" aria-label="Rencana, halaman masuk">
+            <span class="brand-mark" aria-hidden="true"><span></span></span>
+            <span>rencana<span class="brand-period">.</span></span>
+          </a>
+          <span class="login-topnote">SEDIKIT DEMI SEDIKIT</span>
+        </header>
+
+        <section class="login-card" aria-label="Masuk ke Rencana">
+          <aside class="login-story" aria-label="Ruang kecil untuk merencanakan harimu">
+            <span class="story-kicker"><span class="story-kicker-dot"></span> RENCANA HARIAN</span>
+            <div class="story-copy">
+              <h2>Hari ini,<br /><em>cukup satu hal.</em></h2>
+              <p>Susun yang penting. Jalani satu per satu.</p>
+            </div>
+            <div class="mini-planner" aria-hidden="true">
+              <div class="mini-planner-head"><span>CATATAN HARI INI</span><span class="mini-planner-count">03</span></div>
+              <div class="mini-task"><span class="mini-check is-done"></span><span class="mini-lines"><i></i><i></i></span></div>
+              <div class="mini-task"><span class="mini-check"></span><span class="mini-lines"><i></i><i></i></span></div>
+              <div class="mini-task"><span class="mini-check"></span><span class="mini-lines"><i></i><i></i></span></div>
+              <div class="mini-planner-foot"><span></span> pelan-pelan juga sampai</div>
+            </div>
+          </aside>
+          <div class="login-panel">
+            <div class="login-panel-heading">
+              <span class="panel-kicker">PLANNER HARIAN</span>
+              <h1>Masuk ke harimu.</h1>
+              <p>Lihat dan atur rencana hari ini.</p>
+            </div>
+            <form id="login-form" class="login-form">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="nama@contoh.com"
+                autocomplete="username"
+                required
+              />
+
+              <label for="password">Kata sandi</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Masukkan kata sandi"
+                autocomplete="current-password"
+                required
+              />
+
+              <button class="button button-primary login-submit" type="submit">Masuk</button>
+            </form>
+            <p class="demo-note">Login demo lokal. Gunakan email dan kata sandi apa saja; data tersimpan di browser ini.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <main id="app-screen" class="app-screen" hidden>
+      <div class="app-wrap">
+        <header class="app-topbar">
+          <a class="brand" href="#" aria-label="Rencana, beranda">
+            <span class="brand-mark" aria-hidden="true"><span></span></span>
+            <span>rencana<span class="brand-period">.</span></span>
+          </a>
+          <div class="user-menu">
+            <span id="user-avatar" class="user-avatar" aria-hidden="true">R</span>
+            <span id="user-name" class="user-name">Teman</span>
+            <button id="logout-button" class="logout-button" type="button">Keluar</button>
+          </div>
+        </header>
+
+        <section class="planner-intro" aria-labelledby="selected-date">
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span id="date-eyebrow">HARI INI</span></div>
+          <h1 id="selected-date">Rencana harian</h1>
+          <p id="planner-note" class="planner-note" hidden></p>
+        </section>
+
+        <section class="task-card" aria-labelledby="task-card-title">
+          <div class="task-card-header">
+            <h2 id="task-card-title">Tugas</h2>
+            <div class="task-header-actions">
+              <div class="task-count" id="task-count" aria-live="polite">0 tugas</div>
+              <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false" aria-label="Lihat semua rencana mendatang">Semua</button>
+            </div>
+          </div>
+
+          <form id="task-form" class="task-form">
+            <label class="visually-hidden" for="task-input">Tulis rencana baru</label>
+            <input id="task-input" name="task" type="text" maxlength="160" placeholder="Tambah tugas..." autocomplete="off" required />
+            <button class="button button-primary add-button" type="submit" aria-label="Tambah tugas">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12" /></svg>
+            </button>
+          </form>
+
+          <ul id="task-list" class="task-list" aria-label="Daftar tugas"></ul>
+          <div id="empty-state" class="empty-state" hidden>
+            <span class="empty-mark" aria-hidden="true"></span>
+            <p>Belum ada tugas. Tambahkan satu hal kecil.</p>
+          </div>
+
+          <div id="all-plans-panel" class="all-plans-panel" hidden>
+            <div id="all-plans-list" class="all-plans-list"></div>
+            <div id="all-empty-state" class="empty-state" hidden>
+              <span class="empty-mark" aria-hidden="true"></span>
+              <p>Belum ada rencana ke depan.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="week-card" aria-labelledby="week-title">
+          <div class="week-heading">
+            <div>
+              <span class="section-kicker">PILIH TANGGAL</span>
+              <h2 id="week-title">Hari ini</h2>
+            </div>
+            <div class="week-controls">
+              <button id="today-button" class="button button-today" type="button">Hari ini</button>
+              <button id="calendar-open" class="button button-calendar" type="button" aria-haspopup="dialog" aria-controls="calendar-dialog">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.75" y="4.5" width="14.5" height="13" rx="2.3" /><path d="M6.5 2.75v3.5M13.5 2.75v3.5M3.5 8h13" /></svg>
+                <span>Bulanan</span>
+              </button>
+              <button id="previous-week" class="icon-button" type="button" aria-label="Tujuh hari sebelumnya">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12 4-6 6 6 6" /></svg>
+              </button>
+              <button id="next-week" class="icon-button" type="button" aria-label="Tujuh hari berikutnya">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m8 4 6 6-6 6" /></svg>
+              </button>
+            </div>
+          </div>
+          <div id="week-days" class="week-days" role="group" aria-label="Pilih tanggal"></div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="calendar-dialog" class="calendar-dialog" aria-labelledby="calendar-title">
+      <div class="calendar-panel">
+        <div class="calendar-topline">
+          <span class="section-kicker">PILIH TANGGAL</span>
+          <div class="calendar-actions">
+            <button id="calendar-today" class="calendar-today" type="button">Hari ini</button>
+            <button id="calendar-close" class="icon-button close-button" type="button" aria-label="Tutup kalender">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" /></svg>
+            </button>
+          </div>
+        </div>
+        <div class="calendar-month-heading">
+          <h2 id="calendar-title">Oktober 2026</h2>
+          <div class="month-controls">
+            <button id="previous-month" class="icon-button" type="button" aria-label="Bulan sebelumnya">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12 4-6 6 6 6" /></svg>
+            </button>
+            <button id="next-month" class="icon-button" type="button" aria-label="Bulan berikutnya">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m8 4 6 6-6 6" /></svg>
+            </button>
+          </div>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span>
+        </div>
+        <div id="calendar-days" class="calendar-days" role="group" aria-label="Tanggal dalam bulan"></div>
+        <div class="calendar-legend"><span class="legend-dot"></span> Ada tugas</div>
+      </div>
+    </dialog>
+
+    <noscript><p class="noscript-note">Aktifkan JavaScript di browser untuk menggunakan Rencana.</p></noscript>
+  </body>
+</html>
