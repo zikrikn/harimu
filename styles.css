@@ -966,6 +966,11 @@ button:disabled {
   color: #fffdf8;
 }
 
+.date-button.is-weekend:not(.is-selected) .date-weekday,
+.date-button.is-weekend:not(.is-selected) .date-number {
+  color: #b7554a;
+}
+
 .date-button.is-today:not(.is-selected) .date-number {
   color: #a85d42;
 }
@@ -1094,6 +1099,10 @@ button:disabled {
 
 .calendar-day:hover {
   background: var(--green-soft);
+}
+
+.calendar-day.is-weekend:not(.is-selected) {
+  color: #b7554a;
 }
 
 .calendar-day.is-today:not(.is-selected) {

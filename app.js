@@ -244,9 +244,11 @@ function renderWeek() {
     const button = document.createElement("button");
     const selected = key === state.selectedDate;
     const today = key === dateKey(new Date());
+    const weekend = date.getDay() === 0 || date.getDay() === 6;
     const tasks = state.tasksByDate[key] || [];
 
     button.className = "date-button";
+    if (weekend) button.classList.add("is-weekend");
     if (selected) button.classList.add("is-selected");
     if (today) button.classList.add("is-today");
     if (tasks.length > 0) button.classList.add("has-tasks");
@@ -292,8 +294,10 @@ function renderCalendar() {
     const button = document.createElement("button");
     const selected = key === state.selectedDate;
     const today = key === dateKey(new Date());
+    const weekend = date.getDay() === 0 || date.getDay() === 6;
 
     button.className = "calendar-day";
+    if (weekend) button.classList.add("is-weekend");
     if (selected) button.classList.add("is-selected");
     if (today) button.classList.add("is-today");
     if (tasks.length > 0) button.classList.add("has-tasks");
